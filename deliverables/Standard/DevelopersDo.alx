@@ -1,0 +1,31 @@
+<loader version="1.0">
+	<application id="DevelopersDo">
+		<name >
+			Developers
+		</name>
+		<description >
+			
+		</description>
+		<version >
+			1.0.0
+		</version>
+		<vendor >
+			Mayreni Vargas
+		</vendor>
+		<copyright >
+			Copyright (c) 2011 Mayreni Vargas
+		</copyright>
+		<fileset Java="1.54" _blackberryVersion="[6.0.0)">
+			<directory >
+				6.0.0
+			</directory>
+			<files >
+				DevelopersDo.cod
+
+			</files>
+
+		</fileset>
+
+	</application>
+
+</loader>
