@@ -7,35 +7,61 @@ import net.rim.device.api.ui.decor.BackgroundFactory;
 import net.rim.device.api.system.*;
 import java.util.*;
 
+
 public class SplashScreen extends MainScreen {
-	private MainScreen next;
 	private UiApplication application;
 	private Timer timer = new Timer();
-	private static final Bitmap _bitmap = Bitmap
-			.getBitmapResource("logo_horizontal_transp.png");
-
-	public SplashScreen(UiApplication ui, MainScreen next) {
+	
+	public SplashScreen(UiApplication ui) {
 		super(Field.USE_ALL_HEIGHT | Field.FIELD_LEFT);
 		this.application = ui;
-		this.next = next;
+		
 
 		// Mi Codigo
-		HorizontalFieldManager managerTop = new HorizontalFieldManager(HorizontalFieldManager.USE_ALL_WIDTH  | HorizontalFieldManager.USE_ALL_HEIGHT);
-		managerTop.setBackground(BackgroundFactory.createSolidBackground(Color.BLACK));
+		this.getMainManager().setBackground(BackgroundFactory.createSolidBackground(Color.BLACK));
+		GridFieldManager fManager = new GridFieldManager(4, 1, 0);
 		
-		LabelField label = new LabelField("Version ") {
+		
+		LabelField lblVersion = new LabelField("Beta v0.9.1 ") {
 			public void paint(Graphics g) {
 				g.setColor(Color.RED);
 				super.paint(g);
 			}
 		};
-		this.add(managerTop);
 		
-		managerTop.add(label);
-		managerTop.add(new BitmapField(_bitmap));
+		lblVersion.setMargin(30,0,0,0);
 		
 		
+		Bitmap imgLogo = Bitmap.getBitmapResource("logo_horizontal_transp.png");
+		BitmapField bmapImagen = new BitmapField(imgLogo);
+		bmapImagen.setMargin(50,0,0,0);
+		
+		
+		GIFEncodedImage imgLoad = (GIFEncodedImage)GIFEncodedImage.getEncodedImageResource("spinner.gif");
+		AnimatedGIFField bmapLoad = new AnimatedGIFField(imgLoad);
+		bmapLoad.setMargin(70,0,0,0);
+		
+		
+		
+		LabelField lblInfo = new LabelField("http://developers.do\ntwitter:@DevelopersDO") {
+			public void paint(Graphics g) {
+				g.setColor(Color.WHITE);
+				super.paint(g);
+			}
+		};
+		
+		lblInfo.setMargin(90,0,0,0);
+		
+		fManager.add(lblVersion);
+		fManager.add(bmapImagen);
+		fManager.add(bmapLoad);
+		fManager.add(lblInfo);
+		
+		
+		this.add(fManager);
 		//
+		
+		
 		SplashScreenListener listener = new SplashScreenListener(this);
 		this.addKeyListener(listener);
 		timer.schedule(new CountDown(), 5000);
@@ -44,8 +70,8 @@ public class SplashScreen extends MainScreen {
 
 	public void dismiss() {
 		timer.cancel();
-		application.popScreen(this);
-		application.pushScreen(next);
+		//application.popScreen(this);
+		UiApplication.getUiApplication().pushScreen(new MyScreen());
 	}
 
 	private class CountDown extends TimerTask {

@@ -1,7 +1,7 @@
 package DevDom;
 
 import net.rim.device.api.ui.UiApplication;
-import net.rim.device.api.ui.container.MainScreen;
+
 
 /**
  * This class extends the UiApplication class, providing a graphical user
@@ -27,8 +27,7 @@ public class MyApp extends UiApplication {
 	 */
 	public MyApp() {
 		// Push a screen onto the UI stack for rendering.
-		MainScreen main = new MainScreen();
-		SplashScreen splashScreen = new SplashScreen(this, main);
+		SplashScreen splashScreen = new SplashScreen(this);
 
 	}
 }
