@@ -27,7 +27,7 @@ public class MyApp extends UiApplication {
 	 */
 	public MyApp() {
 		// Push a screen onto the UI stack for rendering.
-		SplashScreen splashScreen = new SplashScreen(this);
+		pushScreen(new SplashScreen());
 
 	}
 }

@@ -1,5 +1,6 @@
 package DevDom;
 
+import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.*;
 import net.rim.device.api.ui.component.*;
 import net.rim.device.api.ui.container.*;
@@ -7,19 +8,24 @@ import net.rim.device.api.ui.decor.BackgroundFactory;
 import net.rim.device.api.system.*;
 import java.util.*;
 
+import DevDom.Utils.AnimatedGIFField;
+import DevDom.Utils.BitmapFromURL;
+import DevDom.Utils.DB;
+import DevDom.json.*;
+import DevDom.models.Category;
+import DevDom.models.Memory;
+import DevDom.models.Tutorial;
 
 public class SplashScreen extends MainScreen {
-	private UiApplication application;
-	private Timer timer = new Timer();
-	
-	public SplashScreen(UiApplication ui) {
-		super(Field.USE_ALL_HEIGHT | Field.FIELD_LEFT);
-		this.application = ui;
-		
 
-		// Mi Codigo
+	/**
+	 * 
+	 */
+	public SplashScreen() {
+		super(MainScreen.VERTICAL_SCROLL | MainScreen.VERTICAL_SCROLLBAR);
+		// TODO Auto-generated constructor stub
 		this.getMainManager().setBackground(BackgroundFactory.createSolidBackground(Color.BLACK));
-		GridFieldManager fManager = new GridFieldManager(4, 1, 0);
+		GridFieldManager fManager = new GridFieldManager(5, 1, 0);
 		
 		
 		LabelField lblVersion = new LabelField("Beta v0.9.1 ") {
@@ -39,7 +45,15 @@ public class SplashScreen extends MainScreen {
 		
 		GIFEncodedImage imgLoad = (GIFEncodedImage)GIFEncodedImage.getEncodedImageResource("spinner.gif");
 		AnimatedGIFField bmapLoad = new AnimatedGIFField(imgLoad);
-		bmapLoad.setMargin(70,0,0,0);
+		bmapLoad.setMargin(60,0,0,0);
+		
+		
+		LabelField lblLoad = new LabelField("Cargando, Por Favor Espere...", Field.FIELD_HCENTER) {
+			public void paint(Graphics g) {
+				g.setColor(Color.WHITE);
+				super.paint(g);
+			}
+		};
 		
 		
 		
@@ -50,90 +64,93 @@ public class SplashScreen extends MainScreen {
 			}
 		};
 		
-		lblInfo.setMargin(90,0,0,0);
+		lblInfo.setMargin(100,0,0,0);
 		
 		fManager.add(lblVersion);
 		fManager.add(bmapImagen);
 		fManager.add(bmapLoad);
+		fManager.add(lblLoad);
 		fManager.add(lblInfo);
 		
 		
 		this.add(fManager);
-		//
 		
-		
-		SplashScreenListener listener = new SplashScreenListener(this);
-		this.addKeyListener(listener);
-		timer.schedule(new CountDown(), 5000);
-		application.pushScreen(this);
-	}
+		Thread threadToRun = new Thread() {
+			public void run() {
 
-	public void dismiss() {
-		timer.cancel();
-		//application.popScreen(this);
-		UiApplication.getUiApplication().pushScreen(new MyScreen());
-	}
-
-	private class CountDown extends TimerTask {
-		public void run() {
-			DismissThread dThread = new DismissThread();
-			application.invokeLater(dThread);
-		}
-	}
-
-	private class DismissThread implements Runnable {
-		public void run() {
-			dismiss();
-		}
-	}
-
-	protected boolean navigationClick(int status, int time) {
-		dismiss();
-		return true;
-	}
-
-	protected boolean navigationUnclick(int status, int time) {
-		return false;
-	}
-
-	protected boolean navigationMovement(int dx, int dy, int status, int time) {
-		return false;
-	}
-
-	public static class SplashScreenListener implements KeyListener {
-		private SplashScreen screen;
-
-		public boolean keyChar(char key, int status, int time) {
-			// intercept the ESC and MENU key - exit the splash screen
-			boolean retval = false;
-			switch (key) {
-			case Characters.CONTROL_MENU:
-			case Characters.ESCAPE:
-				screen.dismiss();
-				retval = true;
-				break;
+				UiApplication.getUiApplication().invokeAndWait(new Runnable() {
+					public void run() {
+						LoadCategories();
+					}
+				});
+							
+				UiApplication.getUiApplication().invokeLater(new Runnable() {
+		            public void run() {
+		            	UiApplication.getUiApplication().pushScreen(new MyScreen());
+		            }
+				});
+			
 			}
-			return retval;
-		}
-
-		public boolean keyDown(int keycode, int time) {
-			return false;
-		}
-
-		public boolean keyRepeat(int keycode, int time) {
-			return false;
-		}
-
-		public boolean keyStatus(int keycode, int time) {
-			return false;
-		}
-
-		public boolean keyUp(int keycode, int time) {
-			return false;
-		}
-
-		public SplashScreenListener(SplashScreen splash) {
-			screen = splash;
-		}
+		};
+		threadToRun.start();
+		
 	}
+	
+	public void LoadCategories() {
+
+		Vector categories = new Vector();
+		
+		try {
+			
+			JSONObject json = new JSONObject(DB.getResult());
+
+			JSONArray categorias = json.getJSONArray("categorias");
+
+			// /Buscar las categorias
+			for (int i = 0; i < categorias.length(); i++) {
+
+				JSONObject e = categorias.getJSONObject(i);
+
+				// / Info general de la categoria
+				Category catInfo = new Category(i, e.getString("categoryName"));
+				catInfo.setDescription(e.getString("description"));
+				catInfo.setImageUrl(e.getString("imageUrl"));
+				catInfo.setImage(BitmapFromURL.getImageFromUrl(catInfo.getImageUrl()));
+
+				try {
+					// / Buscar los tutoriales dentro de cada categoria
+					JSONArray ArrTutoriales = e.getJSONArray("tutorials");
+
+					for (int j = 0; j < ArrTutoriales.length(); j++) {
+
+						JSONObject t = ArrTutoriales.getJSONObject(j);
+
+						String name = t.getString("name");
+						String tutorialUrl = t.getString("tutorialUrl");
+						String description = t.getString("description");
+
+						catInfo.addTutorial(new Tutorial(name, tutorialUrl,
+								description));
+					}
+
+				} catch (JSONException ex2) {
+					Dialog.alert(ex2.toString());
+				}
+
+				// / Agregar todas las categorias
+				categories.addElement(catInfo);
+
+				
+				
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			Dialog.alert("No se pudo acceder informacion. Tratar otra vez.");
+		}
+		
+		Memory.categorias = categories;
+
+	}
+
+
 }

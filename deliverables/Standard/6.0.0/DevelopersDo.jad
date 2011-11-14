@@ -1,31 +1,37 @@
-Manifest-Version: 1.0
-MIDlet-Version: 1.0.0
-MIDlet-Jar-Size: 534524
-RIM-COD-URL-5: DevelopersDo-5.cod
-RIM-COD-SHA1-5: 6d da 77 5c 02 8e 81 b7 87 dd 06 1e f3 b2 79 b5 91 ca cf dd
-RIM-COD-URL-4: DevelopersDo-4.cod
-RIM-COD-SHA1-4: 78 2f 9b 6b cf d6 00 74 b2 38 72 c8 2a 8f 9d a5 da d4 66 40
-RIM-COD-URL-3: DevelopersDo-3.cod
-RIM-COD-SHA1-3: 2b 14 6d d0 8a 6e 50 26 10 e9 f3 63 36 cf c0 70 4b 91 02 ab
-RIM-COD-URL-2: DevelopersDo-2.cod
-MicroEdition-Configuration: CLDC-1.1
-MIDlet-Jar-URL: DevelopersDo.jar
-RIM-COD-Module-Dependencies: net_rim_cldc,net_rim_ui_api
-RIM-COD-Size-5: 52764
-RIM-COD-SHA1-2: 46 21 d5 47 04 e3 e8 92 7d 63 21 42 7c c3 a4 44 15 79 26 45
-RIM-COD-URL-1: DevelopersDo-1.cod
-RIM-COD-Size-4: 57220
-RIM-COD-SHA1-1: ae 5c 8b 32 79 32 61 77 a8 14 30 60 4f b6 00 2d 77 15 61 67
-RIM-COD-Size-3: 54808
-RIM-COD-Size-2: 56320
+RIM-COD-SHA1-4: fa b5 33 88 98 3d 6a 4c 19 a3 43 82 5e 80 d5 a2 c9 7e 8b 28
+RIM-COD-SHA1-3: 38 99 a3 b7 82 45 d4 35 51 7b a2 bf 25 a0 6a 26 dc 65 d4 29
+RIM-COD-SHA1-2: c2 98 cf e2 2e ee 70 38 80 0b 6a a2 fa e2 03 b6 88 2e 4f 73
+RIM-COD-SHA1-1: 89 1d 32 66 94 cc 07 bc 90 f7 22 4c 85 0f 94 e0 3c 71 da 32
 RIM-MIDlet-Flags-1: 0
-RIM-COD-Size-1: 56980
-RIM-COD-Module-Name: DevelopersDo
+MIDlet-Jar-Size: 658275
 MIDlet-Name: DevelopersDo
-RIM-COD-Size: 61664
-RIM-COD-Creation-Time: 1320697601
-MIDlet-1: Developers,img/devsdo_logo_trans_square_small.png,
-RIM-COD-URL: DevelopersDo.cod
-RIM-COD-SHA1: e9 57 de c8 0d a8 33 e5 99 db 3d db e0 b1 9f e2 a4 5b f5 3b
+MIDlet-Jar-URL: DevelopersDo.jar
+MicroEdition-Configuration: CLDC-1.1
+RIM-COD-URL-7: DevelopersDo-7.cod
+RIM-COD-Module-Dependencies: net_rim_cldc,net_rim_os,net_rim_ui_api,net_rim_bbapi_browser
+RIM-COD-URL-6: DevelopersDo-6.cod
+RIM-COD-URL-5: DevelopersDo-5.cod
+RIM-COD-URL-4: DevelopersDo-4.cod
+RIM-COD-URL-3: DevelopersDo-3.cod
+RIM-COD-URL-2: DevelopersDo-2.cod
+RIM-COD-URL-1: DevelopersDo-1.cod
+RIM-COD-Size-7: 52796
+RIM-COD-Size-6: 50216
+RIM-COD-Size-5: 57536
+RIM-COD-Size-4: 54844
+RIM-COD-Size-3: 39188
+RIM-COD-Module-Name: DevelopersDo
+RIM-COD-Size-2: 52544
+RIM-COD-Size-1: 57012
+RIM-COD-SHA1: 8f d9 97 53 39 01 66 78 ef a3 1f 20 93 33 27 7e 10 fe 8f 37
+RIM-COD-Size: 25464
 MicroEdition-Profile: MIDP-2.0
 MIDlet-Vendor: Mayreni Vargas
+MIDlet-1: Developers Dominicanos,img/devsdo_logo_trans_square_small.png,
+RIM-COD-URL: DevelopersDo.cod
+Manifest-Version: 1.0
+MIDlet-Version: 1.0.0
+RIM-COD-SHA1-7: b4 d9 ca c1 30 d8 1f f6 2a 1b 78 90 3c 8c 47 31 6d 33 79 c9
+RIM-COD-Creation-Time: 1321207731
+RIM-COD-SHA1-6: b2 dd 38 db c6 b3 ed 91 cd 19 c3 2e 34 69 f4 3d 2a d8 ce 4a
+RIM-COD-SHA1-5: 6b 26 b2 cc 13 29 b4 5d 94 98 a8 b6 81 f3 1f 22 bf d3 1a 5d
